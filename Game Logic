@@ -1,3 +1,6 @@
+import random
+import time
+
 def game():    
     player1Left = 1
     player1Right = 1
