@@ -1,0 +1,104 @@
+def game():    
+    player1Left = 1
+    player1Right = 1
+    player2Left = 1
+    player2Right = 1
+    turn = True
+    playerChoice = ' '
+    handChoice = ' '
+    randChoice = ["l", "r"]
+    npcAttackingHand = ' '
+    npcHandToAttack = ' '
+
+    def board(p1R, p1L, p2R, p2L):
+        print()
+        print()
+        print()
+        print("              Right            Left")
+        print(f"Player 2        {p2R}                {p2L}  ")
+        print(f"Player 1        {p1L}                {p1R}")
+        print("              Left             Right")
+        print()
+        print()
+
+
+    def isOver():
+        if player1Left == 5 and player1Right == 5:
+            return True
+        elif player2Left == 5 and player2Right == 5:
+            return True
+        else:
+            return False
+
+    board(player1Right, player1Left, player2Right, player2Left)
+
+
+
+    print()
+    print()
+
+    while not isOver():
+        if turn:
+            playerChoice = input("Would you like to attack, split, or forfeit? enter the word, or the first letter of your choice: ")
+            print()
+            if (playerChoice.lower() == "attack" or playerChoice.lower() == "a"):
+                handChoice = input("Which hand would you like to attack with? (L or R): ")
+                if (handChoice.lower() == "l"):
+                    attackChoice = input("Which opponent hand would you like to attack? (L or R): ")
+                    if attackChoice.lower() == "l":
+                        player2Left += player1Left
+                        if player2Left > 5:
+                            player2Left -= 5
+                        board(player1Right, player1Left, player2Right, player2Left)
+                    elif attackChoice.lower() == "r":
+                        player2Right += player1Left
+                        if player2Right > 5:
+                            player2Right -= 5
+                        board(player1Right, player1Left, player2Right, player2Left)
+                elif (handChoice.lower() == 'r'):
+                    attackChoice = input("Which opponent hand would you like to attack? (L or R): ")
+                    if attackChoice.lower() == "l":
+                        player2Left += player1Right
+                        if player2Left > 5:
+                            player2Left -= 5
+                        board(player1Right, player1Left, player2Right, player2Left)
+                    elif attackChoice.lower() == "r":
+                        player2Right += player1Right
+                        if player2Right > 5:
+                            player2Right -= 5
+                        board(player1Right, player1Left, player2Right, player2Left)
+            
+        
+        else:
+            time.sleep(2)
+            print()
+            print()
+            print()
+            print()
+            print("vvv OPPONENT MOVE vvv")
+            npcAttackingHand = random.choice(randChoice)
+            npcHandToAttack = random.choice(randChoice)
+            if npcAttackingHand == 'l' and npcHandToAttack == 'l':
+                player1Left += player2Left
+                if player1Left > 5:
+                    player1Left -= 5
+                board(player1Right, player1Left, player2Right, player2Left)
+            elif npcAttackingHand == 'l' and npcHandToAttack == 'r':
+                player1Right += player2Left
+                if player1Right > 5:
+                    player1Right -= 5
+                board(player1Right, player1Left, player2Right, player2Left)
+            elif npcAttackingHand == 'r' and npcHandToAttack == 'l':
+                player1Left += player2Right
+                if player1Left > 5:
+                    player1Left -= 5
+                board(player1Right, player1Left, player2Right, player2Left)
+            elif npcAttackingHand == 'r' and npcHandToAttack == 'r':
+                player1Right += player2Right
+                if player1Right > 5:
+                    player1Right -= 5
+                board(player1Right, player1Left, player2Right, player2Left)
+        
+
+        
+        turn = not turn
